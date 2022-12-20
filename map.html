@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+      html{
+        background-color: black;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        
+      }
+      .submit{
+        text-align: center;
+      }
+      #map {
+        height: 700px;
+        width:100%;
+        
+      }
+
+.container.body-content {
+    padding: 8px 0;
+    width: 100%;
+    margin: 0 auto;
+
+
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container body-content">
+    <div id="map"></div>
+    <script>
+      
+let map;
+
+//Create a function which like us call the google map api and give it location so we can make that a marker for our maps
+//THese are important location for different type of school people can go ahead and teach at.
+//Making it easy for the future to be able and add any other location that woukd like to join our website
+function initMap() {
+  const nahs = {lat: 34.24596011703622, lng: -118.52374730478013};
+  const nms = {lat: 34.225525821404105, lng: -118.52478176064206};
+  const vips = {lat: 34.22191479881276, lng: -118.54367295205431};
+  const ancs = {lat: 34.25245017230207, lng: -118.55191327934433};
+  const lhs = {lat: 34.0491356726649, lng: -118.29750960638032};
+  const gchs = {lat: 34.2190, lng: -118.5487};
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    //this is how zoom in the map would be 
+    center: nahs,
+    //this is where the map going to center around when you first open the page since
+    //can be change when ever and even have setup to be able to just make it someone current location
+  });
+
+  //////////////////////////////////////////////////////////////
+  //This is a way to add a link above the marker so pepole can get the name and the website if they would like
+  // to visit and find out more about the location. 
+  const contentString1 = '<b>1. Northridge Academy High School </b> <br> https://www.northridgeacademyhs.org/';
+  const contentString2 = '<b>2. Northridge Middle School </b> <br> https://northridgems-lausd-ca.schoolloop.com/';
+  const contentString3 = '<b>3. Valley International Prep School</b> <br> https://www.viphs.org/';
+  const contentString4 = '<b>4. Alfred Nobel Charter School </b> ';
+  const contentString5 = '<b>5. Loyola High School</b> <br> https://www.loyolahs.edu/';
+  const contentString6 = '<b>6. Grover Cleveland Highschool</b> <br>https://www.clevelandhs.org/';
+/////////////////////////////////////////////////////////////////
+  //add the desc into a little window making it easy to read and help people find what they want
+  const infowindow1 = new google.maps.InfoWindow({
+    content: contentString1,
+    ariaLabel: "NAHS",
+  });
+   const infowindow2 = new google.maps.InfoWindow({
+    content: contentString2,
+    ariaLabel: "NMS",
+  });
+  const infowindow3 = new google.maps.InfoWindow({
+    content: contentString3,
+    ariaLabel: "VIPS",
+  });
+  const infowindow4 = new google.maps.InfoWindow({
+    content: contentString4,
+    ariaLabel: "ANCS",
+  });
+  const infowindow5 = new google.maps.InfoWindow({
+    content: contentString5,
+    ariaLabel: "LHS",
+  });
+    const infowindow6 = new google.maps.InfoWindow({
+    content: contentString6,
+    ariaLabel: "GCHS",
+  });
+ 
+  ///////////////////////////////////////////////////////////////////
+  //adding the Name of the marker so it can be assign to a location
+  const firstmarker = new google.maps.Marker({
+    position: nahs,
+    map,
+    title: "Northridge Academy High School",
+  });
+    const secondmarker = new google.maps.Marker({
+    position: nms,
+    map,
+    title: "Northridge Middle School",
+  });
+    const thirdmarker = new google.maps.Marker({
+    position: vips,
+    map,
+    title: "Valley International Prep School",
+  });
+  const fourthmarker = new google.maps.Marker({
+    position: ancs,
+    map,
+    title: "Alfred Nobel Charter High School",
+  });
+  const fifthmarker = new google.maps.Marker({
+    position: lhs,
+    map,
+    title: "Loyola High School",
+  });
+  const sixthmarker = new google.maps.Marker({
+  position: gchs,
+  map,
+  title: "Grover Cleveland Highscool",
+  });
+///////////////////////////////////////////////////////////
+  // this is adding a event listener so whenever some one click on a marker they get the infor window from
+  //above. Only on click since hovering seem to be cover up certain locaiton since school are near each other
+  firstmarker.addListener("click", () => {
+    infowindow1.open({
+      anchor: firstmarker,
+      map,
+    });
+  });
+   secondmarker.addListener("click", () => {
+    infowindow2.open({
+      anchor: secondmarker,
+      map,
+    });
+  });
+  thirdmarker.addListener("click", () => {
+    infowindow3.open({
+      anchor: thirdmarker,
+      map,
+    });
+  });
+  fourthmarker.addListener("click", () => {
+    infowindow4.open({
+      anchor: fourthmarker,
+      map,
+    });
+  });
+  fifthmarker.addListener("click", () => {
+    infowindow5.open({
+      anchor: fifthmarker,
+      map,
+    });
+  });
+  sixthmarker.addListener("click", () => {
+  infowindow6.open({
+    anchor: sixthmarker,
+    map,
+    });
+  });
+  ///////////////////////////////////////////////////
+}
+
+//this is declaring the var initMap
+window.initMap = initMap;
+      
+    </script>
+    
+    </div>
+ 
+
+      
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAduQvERzfyYbcvLygpDgSp9bjHhTpL5Ls&callback=initMap">//
+      //this is the link to the api and how we are able to pull location data
+      </script>
+     
+      <div class= submit>
+      <button
+      type="submit"
+      value="Go Home"
+       onclick= "location.href='index.html'"
+      > 
+    Go Home
+    
+  </body>
+</html>
